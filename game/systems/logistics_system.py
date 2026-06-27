@@ -123,7 +123,7 @@ class LogisticsSystem:
                 best_agent.state = AgentState.LOGISTICS_TASK
                 best_agent.target_building_id = order.origin_building_id
 
-                best_agent.path_nodes = self.pathfinding.find_path_refined(
+                best_agent.path_nodes = self.pathfinding.find_path(
                     best_agent.logical_cell, origin_b.entrance_cell
                 )
                 if best_agent.path_nodes and best_agent.path_nodes[0] == best_agent.logical_cell:
@@ -156,7 +156,7 @@ class LogisticsSystem:
                         order.status = OrderStatus.DELIVERING
                         dest_b = self.buildings.get(order.dest_building_id)
                         agent.target_building_id = order.dest_building_id
-                        agent.path_nodes = self.pathfinding.find_path_refined(
+                        agent.path_nodes = self.pathfinding.find_path(
                             agent.logical_cell, dest_b.entrance_cell
                         )
                         if agent.path_nodes and agent.path_nodes[0] == agent.logical_cell:

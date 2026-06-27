@@ -10,7 +10,7 @@ def test_a_star_basic():
     gc = GridController(5, 5)
     pf = AStarPathfinding(gc)
 
-    path = pf.find_path_refined((0, 0), (4, 4))
+    path = pf.find_path((0, 0), (4, 4))
     assert len(path) > 0
     assert path[0] == (0, 0)
     assert path[-1] == (4, 4)
@@ -29,7 +29,7 @@ def test_a_star_weights():
     # Costs: (0,1)=3, (1,1)=3, (2,1)=3, (2,0)=3 Total=12
     # Direct cost: (1,0)=100, (2,0)=3 Total=103
 
-    path = pf.find_path_refined((0, 0), (2, 0))
+    path = pf.find_path((0, 0), (2, 0))
     assert (1, 0) not in path
     assert (1, 1) in path
     print("Weighted A* test passed!")

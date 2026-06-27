@@ -31,7 +31,7 @@ class NPCSystem:
         if agent.state == AgentState.IDLE or agent.state == AgentState.COMMUTING_TO_HOME:
             if 8 <= current_hour < 17 and agent.work_building_id:
                 dest = self.buildings[agent.work_building_id].entrance_cell
-                agent.path_nodes = self.pathfinding.find_path_refined(agent.logical_cell, dest)
+                agent.path_nodes = self.pathfinding.find_path(agent.logical_cell, dest)
                 if agent.path_nodes:
                     agent.state = AgentState.COMMUTING_TO_WORK
                     if agent.path_nodes[0] == agent.logical_cell:
@@ -45,7 +45,7 @@ class NPCSystem:
                 agent.state = AgentState.COMMUTING_TO_HOME
                 home = self.buildings.get(agent.home_building_id)
                 if home:
-                    agent.path_nodes = self.pathfinding.find_path_refined(agent.logical_cell, home.entrance_cell)
+                    agent.path_nodes = self.pathfinding.find_path(agent.logical_cell, home.entrance_cell)
                     if agent.path_nodes and agent.path_nodes[0] == agent.logical_cell:
                         agent.path_nodes.pop(0)
 
