@@ -1,0 +1,77 @@
+Iniciando Simulação de Jogo de Malha...
+Mundo configurado. Iniciando loop temporal...
+--- Hora: 06:05 ---
+  NPC npc_joao: IDLE em (2, 2)
+  NPC npc_maria: IDLE em (3, 2)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 0.0% | Estoque: 0 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 08:05 ---
+  NPC npc_joao: COMMUTING_TO_WORK em (2, 1)
+  NPC npc_maria: COMMUTING_TO_WORK em (3, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 0.0% | Estoque: 0 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 10:06 ---
+  NPC npc_joao: COMMUTING_TO_WORK em (10, 3)
+  NPC npc_maria: COMMUTING_TO_WORK em (10, 4)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 0.0% | Estoque: 0 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 12:06 ---
+  NPC npc_joao: WORKING em (10, 10)
+  NPC npc_maria: WORKING em (15, 5)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 60.0% | Estoque: 0 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 14:05 ---
+  NPC npc_joao: WORKING em (10, 10)
+  NPC npc_maria: WORKING em (15, 5)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 60.0% | Estoque: 2 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 16:06 ---
+  NPC npc_joao: WORKING em (10, 10)
+  NPC npc_maria: WORKING em (15, 5)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 60.0% | Estoque: 4 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 18:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (10, 4)
+  NPC npc_maria: COMMUTING_TO_HOME em (11, 5)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 20:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (3, 1)
+  NPC npc_maria: COMMUTING_TO_HOME em (5, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 22:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (2, 1)
+  NPC npc_maria: COMMUTING_TO_HOME em (3, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 00:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (2, 1)
+  NPC npc_maria: COMMUTING_TO_HOME em (3, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 02:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (2, 1)
+  NPC npc_maria: COMMUTING_TO_HOME em (3, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Hora: 04:06 ---
+  NPC npc_joao: COMMUTING_TO_HOME em (2, 1)
+  NPC npc_maria: COMMUTING_TO_HOME em (3, 1)
+  NPC npc_pedro: IDLE em (2, 2)
+  Produção Serraria: 40.0% | Estoque: 5 Wood
+  Produção Móveis: 0.0% | Estoque: 0 Wood, 0 Furniture
+--- Simulação Finalizada ---
+Estoque Final Serraria: {<ResourceType.WOOD: 2>: 5}
+Estoque Final Fábrica de Móveis: {}
