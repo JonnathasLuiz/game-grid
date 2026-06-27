@@ -1,6 +1,14 @@
+"""
+Factory logic for completed buildings.
+"""
 from .base import LogicBase
 
 class LogicFactory(LogicBase):
+    """
+    Mechanical logic for a functional factory.
+    """
     def execute(self):
-        # Factory logic: maybe produce resources every X ticks
+        """
+        Production logic (to be implemented).
+        """
         pass

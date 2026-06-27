@@ -1,6 +1,12 @@
+"""
+NPC System module for managing the lifecycle and tasks of NPCs.
+"""
 from .agent import NpcAgent
 
 class NpcSystem:
+    """
+    Manager system for all NPCs. Handles task assignment via Event Bus.
+    """
     def __init__(self, kernel, event_bus):
         self.kernel = kernel
         self.event_bus = event_bus
@@ -9,18 +15,26 @@ class NpcSystem:
         self.event_bus.subscribe("TAREFA_CONCLUIDA", self._on_task_completed)
 
     def add_npc(self, agent_id, x, y):
+        """
+        Creates and registers a new NPC in the system and grid.
+        """
         npc = NpcAgent(agent_id, x, y)
         self.npcs[agent_id] = npc
         self.kernel.grid_system.occupy(x, y, agent_id)
         return npc
 
     def update(self):
+        """
+        Ticks all registered NPCs.
+        """
         for npc in self.npcs.values():
             npc.update()
 
     def _on_order_created(self, data):
+        """
+        Matchmaking logic to assign an order to an idle NPC.
+        """
         task_type = data.get("task_type")
-        target_id = data.get("target_id")
 
         # Simple matchmaking: find first IDLE NPC
         for npc in self.npcs.values():
@@ -30,10 +44,9 @@ class NpcSystem:
                 break
 
     def _on_task_completed(self, data):
-        # We need to know which NPC completed the task.
-        # Usually Behavior would signal its completion.
-        # For simplicity, if we receive TAREFA_CONCLUIDA, we might need more data.
-        # Let's assume the data contains npc_id.
+        """
+        Handles task completion events to release NPCs back to IDLE state.
+        """
         npc_id = data.get("npc_id")
         if npc_id in self.npcs:
             npc = self.npcs[npc_id]

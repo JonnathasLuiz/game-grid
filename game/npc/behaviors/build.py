@@ -1,6 +1,13 @@
+"""
+Build behavior for NPCs.
+"""
 from .base import BehaviorGeneric
 
 class BehaviorBuild(BehaviorGeneric):
+    """
+    NPC behavior for constructing buildings.
+    Involves pathfinding to the building entrance and generating progress.
+    """
     def __init__(self, npc, task_data, event_bus, grid_system):
         super().__init__(npc, task_data, event_bus, grid_system)
         self.target_id = task_data["target_id"]
@@ -9,6 +16,9 @@ class BehaviorBuild(BehaviorGeneric):
         self.path = []
 
     def execute(self):
+        """
+        Finite State Machine for build behavior: CALCULATING_PATH -> MOVING -> WORKING.
+        """
         if self.state == "CALCULATING_PATH":
             self.path = self.grid_system.find_path(self.npc.logical_cell, self.target_pos)
             if self.path:
@@ -34,7 +44,7 @@ class BehaviorBuild(BehaviorGeneric):
                     self.state = "WORKING"
 
         elif self.state == "WORKING":
-            # Emit progress
+            # Emit progress via Event Bus
             self.event_bus.publish("PROGRESSO_GERADO",
                                    target_id=self.target_id,
                                    amount=10,
