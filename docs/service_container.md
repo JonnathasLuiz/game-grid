@@ -11,6 +11,21 @@ O `ServiceContainer` é o cofre central de dependências. Ele gerencia instânci
 - **DAG (Topological Sort)**: Resolve dependências entre tags para garantir que sistemas base rodem antes de sistemas dependentes.
 - **Micro-Order (Prioridade)**: Ordena serviços dentro de uma mesma tag usando `SystemPriority`.
 
+## Gestão de Tags e Dependências
+
+### Tags de Execução
+As tags permitem agrupar sistemas que devem ser executados em fases específicas do loop.
+- `container.tag(tag_name, [service_names], priority)`: Associa serviços a uma tag com uma prioridade específica.
+
+### Micro-Ordem (SystemPriority)
+Dentro de uma mesma tag, os sistemas são executados em ordem crescente de prioridade.
+- Ex: Se `Physics` tem prioridade 100 e `AI` tem 500, ambos na tag `gameplay_update`, o `Physics` rodará primeiro.
+
+### Macro-Ordem (Dependências de Tags)
+As tags podem depender umas das outras, criando um Grafo Direcionado Acíclico (DAG).
+- `container.add_tag_dependency(tag, depends_on)`: Garante que `tag` só execute APÓS `depends_on`.
+- Ex: `container.add_tag_dependency("gameplay_update", depends_on="core_update")` garante que os sistemas de gameplay só rodem após os sistemas de core estarem prontos.
+
 ### Exemplo de Uso:
 ```python
 container = ServiceContainer()
