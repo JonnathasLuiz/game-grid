@@ -13,3 +13,9 @@ class IServiceProvider:
         Configure dependencies and cross-service registrations.
         """
         pass
+
+    def get_core_deps(self, container):
+        """
+        Utility to resolve common core dependencies.
+        """
+        return container.resolve("KernelRegistry"), container.resolve("EventBus")

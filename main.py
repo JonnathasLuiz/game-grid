@@ -25,13 +25,8 @@ def main():
         SystemServiceProvider() # Resolves and builds the final execution list
     ]
 
-    # 2. Execute Register Phase
-    for provider in providers:
-        provider.register(app_container)
-
-    # 3. Execute Boot Phase
-    for provider in providers:
-        provider.boot(app_container)
+    # 2. Bootstrap Providers (Register & Boot Phases)
+    app_container.bootstrap(providers)
 
     # Resolve dependencies for initial state setup
     event_bus = app_container.resolve("EventBus")

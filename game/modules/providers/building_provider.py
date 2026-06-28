@@ -9,8 +9,7 @@ class BuildingServiceProvider(IServiceProvider):
         pass
 
     def boot(self, container):
-        kernel = container.resolve("KernelRegistry")
-        event_bus = container.resolve("EventBus")
+        kernel, event_bus = self.get_core_deps(container)
 
         building_system = BuildingSystem(kernel, event_bus)
         container.singleton("BuildingSystem", building_system)

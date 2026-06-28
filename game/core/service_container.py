@@ -85,3 +85,11 @@ class ServiceContainer:
                     resolved_names.add(service_name)
 
         return final_services
+
+    def bootstrap(self, providers: list):
+        """Executes the two-phase initialization for a list of Service Providers."""
+        for provider in providers:
+            provider.register(self)
+
+        for provider in providers:
+            provider.boot(self)

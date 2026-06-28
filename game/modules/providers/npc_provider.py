@@ -13,8 +13,7 @@ class NpcServiceProvider(IServiceProvider):
         pass
 
     def boot(self, container):
-        kernel = container.resolve("KernelRegistry")
-        event_bus = container.resolve("EventBus")
+        kernel, event_bus = self.get_core_deps(container)
 
         npc_system = NpcSystem(kernel, event_bus)
         container.singleton("NpcSystem", npc_system)
