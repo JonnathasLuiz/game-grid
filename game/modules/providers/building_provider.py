@@ -1,7 +1,7 @@
-from game.providers.base_provider import IServiceProvider
-from game.building.system import BuildingSystem
-from game.building.logics.blueprint import LogicBlueprint
-from game.building.logics.factory import LogicFactory
+from game.modules.providers.base_provider import IServiceProvider
+from game.modules.building.system import BuildingSystem
+from game.modules.building.logics.blueprint import LogicBlueprint
+from game.modules.building.logics.factory import LogicFactory
 from game.core.system_priority import SystemPriority
 
 class BuildingServiceProvider(IServiceProvider):

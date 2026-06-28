@@ -2,12 +2,12 @@
 Main Entry Point and Bootloader for the grid simulation.
 """
 from game.core.service_container import ServiceContainer
-from game.providers.core_provider import CoreServiceProvider
-from game.providers.npc_provider import NpcServiceProvider
-from game.providers.building_provider import BuildingServiceProvider
-from game.providers.task_provider import TaskServiceProvider
-from game.providers.system_provider import SystemServiceProvider
-from game.building.logics.factory import LogicFactory
+from game.modules.providers.core_provider import CoreServiceProvider
+from game.modules.providers.npc_provider import NpcServiceProvider
+from game.modules.providers.building_provider import BuildingServiceProvider
+from game.modules.providers.task_provider import TaskServiceProvider
+from game.modules.providers.system_provider import SystemServiceProvider
+from game.modules.building.logics.factory import LogicFactory
 
 def main():
     """

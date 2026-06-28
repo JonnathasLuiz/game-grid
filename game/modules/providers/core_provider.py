@@ -1,4 +1,4 @@
-from game.providers.base_provider import IServiceProvider
+from game.modules.providers.base_provider import IServiceProvider
 from game.core.event_bus import EventBus
 from game.core.grid_system import GridSystem
 from game.core.kernel import KernelRegistry

@@ -1,6 +1,6 @@
-from game.providers.base_provider import IServiceProvider
-from game.npc.system import NpcSystem
-from game.npc.behaviors.build import BehaviorBuild
+from game.modules.providers.base_provider import IServiceProvider
+from game.modules.npc.system import NpcSystem
+from game.modules.npc.behaviors.build import BehaviorBuild
 from game.core.system_priority import SystemPriority
 
 class NpcServiceProvider(IServiceProvider):

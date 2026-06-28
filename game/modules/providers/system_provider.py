@@ -1,5 +1,5 @@
-from game.providers.base_provider import IServiceProvider
-from game.systems.core.system_manager import SystemManager
+from game.modules.providers.base_provider import IServiceProvider
+from game.core.system_manager import SystemManager
 
 class SystemServiceProvider(IServiceProvider):
     def register(self, container):

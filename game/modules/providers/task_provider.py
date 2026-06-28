@@ -1,5 +1,5 @@
-from game.providers.base_provider import IServiceProvider
-from game.task.manager import TaskManager
+from game.modules.providers.base_provider import IServiceProvider
+from game.modules.task.manager import TaskManager
 from game.core.system_priority import SystemPriority
 
 class TaskServiceProvider(IServiceProvider):

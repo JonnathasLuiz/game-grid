@@ -33,14 +33,14 @@ container.singleton("MyService", MyService())
 container.tag("core_update", ["MyService"], priority=SystemPriority.CORE_ENGINE)
 ```
 
-## Service Providers (`game/providers/`)
+## Service Providers (`game/modules/providers/`)
 Módulos responsáveis por configurar o container. Cada provider deve implementar `IServiceProvider`.
 
 ### Ciclo de Vida:
 1. **register(container)**: Instancia serviços e define tags. Não deve acessar outros serviços.
 2. **boot(container)**: Configura dependências entre serviços e define regras de precedência de tags (`add_tag_dependency`).
 
-## SystemManager (`game/systems/core/system_manager.py`)
+## SystemManager (`game/core/system_manager.py`)
 Orquestrador do Loop de Jogo. Ele solicita ao container a lista de sistemas resolvidos por tags e os executa na ordem correta.
 
 ### Como utilizar no Main:
