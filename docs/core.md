@@ -21,3 +21,6 @@ Gerencia a malha matemática do mundo.
 O catálogo e fábrica do sistema.
 - **Função**: Centraliza o registro de classes de comportamento e lógica, injetando as dependências necessárias (`EventBus` e `GridSystem`) no momento da instanciação.
 - **Injeção de Dependência**: Garante que os comportamentos não precisem de imports circulares ou referências globais.
+
+## ServiceContainer e Orquestração (`service_container.md`)
+Para detalhes sobre o novo sistema de Injeção de Dependência (DI) e o Grafo de Execução (DAG), consulte a [Documentação do Service Container](./service_container.md).

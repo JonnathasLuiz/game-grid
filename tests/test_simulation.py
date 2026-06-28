@@ -2,12 +2,12 @@ import unittest
 from game.core.event_bus import EventBus
 from game.core.grid_system import GridSystem
 from game.core.kernel import KernelRegistry
-from game.npc.system import NpcSystem
-from game.npc.behaviors.build import BehaviorBuild
-from game.building.system import BuildingSystem
-from game.building.logics.blueprint import LogicBlueprint
-from game.building.logics.factory import LogicFactory
-from game.task.manager import TaskManager
+from game.modules.npc.system import NpcSystem
+from game.modules.npc.behaviors.build import BehaviorBuild
+from game.modules.building.system import BuildingSystem
+from game.modules.building.logics.blueprint import LogicBlueprint
+from game.modules.building.logics.factory import LogicFactory
+from game.modules.task.manager import TaskManager
 
 class TestSimulation(unittest.TestCase):
     def test_construction_flow(self):

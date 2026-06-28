@@ -32,6 +32,7 @@ PYTHONPATH=. python3 tests/test_simulation.py
 ## Documentação Detalhada
 A documentação específica de cada módulo pode ser encontrada na pasta `/docs`:
 - [Core Systems](./docs/core.md)
+- [Service Container & DI](./docs/service_container.md)
 - [NPC System](./docs/npc.md)
 - [Building System](./docs/building.md)
 - [Task Management](./docs/task.md)
