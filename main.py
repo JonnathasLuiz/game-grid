@@ -1,37 +1,43 @@
 """
 Main Entry Point and Bootloader for the grid simulation.
 """
-import time
-from game.core.event_bus import EventBus
-from game.core.grid_system import GridSystem
-from game.core.kernel import KernelRegistry
-from game.npc.system import NpcSystem
-from game.npc.behaviors.build import BehaviorBuild
-from game.building.system import BuildingSystem
-from game.building.logics.blueprint import LogicBlueprint
+from game.core.service_container import ServiceContainer
+from game.providers.core_provider import CoreServiceProvider
+from game.providers.npc_provider import NpcServiceProvider
+from game.providers.building_provider import BuildingServiceProvider
+from game.providers.task_provider import TaskServiceProvider
+from game.providers.system_provider import SystemServiceProvider
 from game.building.logics.factory import LogicFactory
-from game.task.manager import TaskManager
 
 def main():
     """
-    Bootstraps the game systems, registers strategies, and runs the tick loop.
+    Bootstraps the game systems using ServiceContainer and Service Providers,
+    registers strategies, and runs the tick loop.
     """
-    # 1. Instantiate base dependencies
-    event_bus = EventBus()
-    grid_system = GridSystem(width=20, height=20)
+    app_container = ServiceContainer()
 
-    # 2. Instantiate KernelRegistry
-    kernel = KernelRegistry(event_bus, grid_system)
+    # 1. List of Modules
+    providers = [
+        CoreServiceProvider(),
+        NpcServiceProvider(),
+        BuildingServiceProvider(),
+        TaskServiceProvider(),
+        SystemServiceProvider() # Resolves and builds the final execution list
+    ]
 
-    # 3. Register behaviors and logics (Boot phase)
-    kernel.register_npc_behavior("BUILD", BehaviorBuild)
-    kernel.register_building_logic("BLUEPRINT", LogicBlueprint)
-    kernel.register_building_logic("FACTORY", LogicFactory)
+    # 2. Execute Register Phase
+    for provider in providers:
+        provider.register(app_container)
 
-    # 4. Instantiate Manager Systems
-    npc_system = NpcSystem(kernel, event_bus)
-    building_system = BuildingSystem(kernel, event_bus)
-    task_manager = TaskManager(event_bus)
+    # 3. Execute Boot Phase
+    for provider in providers:
+        provider.boot(app_container)
+
+    # Resolve dependencies for initial state setup
+    event_bus = app_container.resolve("EventBus")
+    npc_system = app_container.resolve("NpcSystem")
+    building_system = app_container.resolve("BuildingSystem")
+    system_manager = app_container.resolve("SystemManager")
 
     # Setup Initial State
     npc_system.add_npc("npc_01", 0, 0)
@@ -41,13 +47,17 @@ def main():
     print("Triggering NOVA_TAREFA for predio_01")
     event_bus.publish("NOVA_TAREFA", task_type="BUILD", target_id="predio_01", target_pos=(5, 4))
 
-    # 5. Game Loop (Temporal Loop)
+    # 4. Game Loop (Temporal Loop)
     tick = 0
     max_ticks = 50
+    delta_time = 0.016
+
+    print("Motor Inicializado. Iniciando Simulação.")
     while tick < max_ticks:
         print(f"--- Tick {tick} ---")
-        npc_system.update()
-        building_system.update()
+
+        # Executes systems in the perfect hierarchy
+        system_manager.update_all(delta_time)
 
         # Check if building construction is completed
         if "predio_01" in building_system.buildings and \
