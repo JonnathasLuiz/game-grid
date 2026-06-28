@@ -40,6 +40,5 @@ class BuildingSystem:
 
         if target_id in self.buildings:
             building = self.buildings[target_id]
-            # Building logic is expected to implement receive_progress if it can be constructed/worked on
-            if hasattr(building.logic, "receive_progress"):
-                building.logic.receive_progress(amount, npc_id)
+            # Call receive_progress directly as it is part of the LogicBase interface
+            building.logic.receive_progress(amount, npc_id)
