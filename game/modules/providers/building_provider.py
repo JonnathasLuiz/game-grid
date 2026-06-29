@@ -14,7 +14,8 @@ class BuildingServiceProvider(IServiceProvider):
         building_system = BuildingSystem(kernel, event_bus)
         container.singleton("BuildingSystem", building_system)
 
-        kernel.register_building_logic("BLUEPRINT", LogicBlueprint)
-        kernel.register_building_logic("FACTORY", LogicFactory)
+        # Register Building Logics as Strategies
+        kernel.register_strategy("BLUEPRINT", LogicBlueprint)
+        kernel.register_strategy("FACTORY", LogicFactory)
 
         container.tag("gameplay_update", ["BuildingSystem"], priority=SystemPriority.ECONOMY_SYSTEMS)

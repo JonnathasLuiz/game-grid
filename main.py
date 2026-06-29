@@ -36,7 +36,9 @@ def main():
 
     # Setup Initial State
     npc_system.add_npc("npc_01", 0, 0)
-    building_system.add_building("predio_01", "FACTORY_BUILDING", 5, 5, 5, 4, "BLUEPRINT")
+
+    # Notice: add_building no longer takes "BLUEPRINT" as it's defined declaratively in the entity
+    building_system.add_building("predio_01", "FACTORY_BUILDING", 5, 5, 5, 4)
 
     # Trigger Construction Task
     print("Triggering NOVA_TAREFA for predio_01")

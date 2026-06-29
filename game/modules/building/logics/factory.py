@@ -7,7 +7,7 @@ class LogicFactory(LogicBase):
     """
     Mechanical logic for a functional factory.
     """
-    def execute(self):
+    def execute(self, delta_time):
         """
         Production logic (to be implemented).
         """
