@@ -14,6 +14,7 @@ O gestor da população de NPCs.
 - **Matchmaking**: Atualmente utiliza uma lógica simples de "primeiro disponível".
 
 ## Behaviors (`behaviors/`)
-Onde reside a inteligência dos NPCs.
+Onde reside a inteligência dos NPCs, agora integrados ao **Strategy Framework**.
+
+- **BehaviorGeneric**: Interface base para todos os comportamentos de NPCs, herdando de `StrategyBase`.
 - **BehaviorBuild**: Implementa a lógica de construção. O NPC caminha até a entrada do edifício e emite eventos de `PROGRESSO_GERADO` a cada tick.
-- **Estrutura**: Todos os comportamentos herdam de `BehaviorGeneric`.

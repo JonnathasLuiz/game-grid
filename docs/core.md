@@ -25,5 +25,7 @@ O coração comportamental do simulador. Centraliza a definição de capacidades
 - **Configuração Declarativa**: Entidades definem quais estratégias suportam via `allowStrategies` e qual sua lógica inicial via `strategyStart`.
 - **Hot-Swapping**: Permite trocar a estratégia de uma entidade em tempo de execução sem necessidade de reinstanciação.
 
+Para mais detalhes, veja a [Documentação do Strategy Framework](./strategy_framework.md).
+
 ## ServiceContainer e Orquestração (`service_container.md`)
 Para detalhes sobre o novo sistema de Injeção de Dependência (DI) e o Grafo de Execução (DAG), consulte a [Documentação do Service Container](./service_container.md).
