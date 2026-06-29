@@ -1,7 +1,7 @@
 import unittest
 from game.core.event_bus import EventBus
 from game.core.grid_system import GridSystem
-from game.core.kernel import KernelRegistry
+from game.core.strategy.kernel import StrategyKernel
 from game.modules.npc.system import NpcSystem
 from game.modules.npc.behaviors.build import BehaviorBuild
 from game.modules.building.system import BuildingSystem
@@ -13,18 +13,19 @@ class TestSimulation(unittest.TestCase):
     def test_construction_flow(self):
         event_bus = EventBus()
         grid_system = GridSystem(width=10, height=10)
-        kernel = KernelRegistry(event_bus, grid_system)
+        kernel = StrategyKernel(event_bus, grid_system)
 
-        kernel.register_npc_behavior("BUILD", BehaviorBuild)
-        kernel.register_building_logic("BLUEPRINT", LogicBlueprint)
-        kernel.register_building_logic("FACTORY", LogicFactory)
+        kernel.register_strategy("BUILD", BehaviorBuild)
+        kernel.register_strategy("BLUEPRINT", LogicBlueprint)
+        kernel.register_strategy("FACTORY", LogicFactory)
 
         npc_system = NpcSystem(kernel, event_bus)
         building_system = BuildingSystem(kernel, event_bus)
         task_manager = TaskManager(event_bus)
 
         npc = npc_system.add_npc("npc_1", 0, 0)
-        building = building_system.add_building("b1", "HOUSE", 2, 2, 2, 1, "BLUEPRINT")
+        # Updated add_building call: removed manual logic name
+        building = building_system.add_building("b1", "HOUSE", 2, 2, 2, 1)
 
         # Verify initial states
         self.assertEqual(npc.state, "IDLE")

@@ -8,8 +8,8 @@ class LogicBlueprint(LogicBase):
     Handles construction progress for a building.
     Transmutes into LogicFactory once 100% progress is reached.
     """
-    def __init__(self, building, event_bus, grid_system, kernel):
-        super().__init__(building, event_bus, grid_system, kernel)
+    def __init__(self, building, event_bus, grid_system, kernel, **kwargs):
+        super().__init__(building, event_bus, grid_system, kernel, **kwargs)
         self.progress = 0
         self.is_completed = False
 
@@ -25,8 +25,10 @@ class LogicBlueprint(LogicBase):
 
         if self.progress >= 100:
             self.is_completed = True
-            # Transmute to LogicFactory
-            self.building.logic = self.kernel.create_building_logic("FACTORY", self.building)
+
+            # Transmute to FACTORY via the Strategy Framework
+            new_logic = self.kernel.create_strategy("FACTORY", self.building)
+            self.building.set_logic(new_logic)
 
             # Notify task completion
             self.event_bus.publish("TAREFA_CONCLUIDA",
@@ -34,5 +36,5 @@ class LogicBlueprint(LogicBase):
                                    npc_id=npc_id)
             print(f"Building {self.building.id} construction completed and transmuted to FACTORY!")
 
-    def execute(self):
+    def execute(self, delta_time):
         pass

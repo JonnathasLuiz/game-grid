@@ -17,10 +17,13 @@ Gerencia a malha matemática do mundo.
   - `is_walkable(x, y)`: Valida se uma célula está livre e dentro dos limites.
   - `find_path(start, end)`: Retorna uma lista de coordenadas para deslocamento.
 
-## KernelRegistry (`kernel.py`)
-O catálogo e fábrica do sistema.
-- **Função**: Centraliza o registro de classes de comportamento e lógica, injetando as dependências necessárias (`EventBus` e `GridSystem`) no momento da instanciação.
-- **Injeção de Dependência**: Garante que os comportamentos não precisem de imports circulares ou referências globais.
+## Strategy Framework (`core/strategy/`)
+O coração comportamental do simulador. Centraliza a definição de capacidades e comportamentos.
+
+- **StrategyBase (`base.py`)**: Interface abstrata que define o contrato para todas as estratégias (NPCs e Edifícios).
+- **StrategyKernel (`kernel.py`)**: O gerenciador central que valida se uma entidade suporta uma estratégia (`allowStrategies`) e injeta as dependências (`EventBus`, `GridSystem`) na instanciação.
+- **Configuração Declarativa**: Entidades definem quais estratégias suportam via `allowStrategies` e qual sua lógica inicial via `strategyStart`.
+- **Hot-Swapping**: Permite trocar a estratégia de uma entidade em tempo de execução sem necessidade de reinstanciação.
 
 ## ServiceContainer e Orquestração (`service_container.md`)
 Para detalhes sobre o novo sistema de Injeção de Dependência (DI) e o Grafo de Execução (DAG), consulte a [Documentação do Service Container](./service_container.md).

@@ -8,14 +8,14 @@ class BehaviorBuild(BehaviorGeneric):
     NPC behavior for constructing buildings.
     Involves pathfinding to the building entrance and generating progress.
     """
-    def __init__(self, npc, task_data, event_bus, grid_system):
-        super().__init__(npc, task_data, event_bus, grid_system)
-        self.target_id = task_data["target_id"]
-        self.target_pos = task_data["target_pos"] # Entrance cell
+    def __init__(self, npc, event_bus, grid_system, kernel, **kwargs):
+        super().__init__(npc, event_bus, grid_system, kernel, **kwargs)
+        self.target_id = self.task_data.get("target_id")
+        self.target_pos = self.task_data.get("target_pos") # Entrance cell
         self.state = "CALCULATING_PATH"
         self.path = []
 
-    def execute(self):
+    def execute(self, delta_time):
         """
         Finite State Machine for build behavior: CALCULATING_PATH -> MOVING -> WORKING.
         """
