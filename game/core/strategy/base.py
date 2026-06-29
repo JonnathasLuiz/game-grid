@@ -20,6 +20,7 @@ class StrategyBase(ABC):
         self.event_bus = event_bus
         self.grid_system = grid_system
         self.kernel = kernel
+        self.logic = None  # Placeholder for the logic to be executed each tick
 
     @abstractmethod
     def execute(self, delta_time):
@@ -28,3 +29,10 @@ class StrategyBase(ABC):
         Must be implemented by subclasses.
         """
         pass
+
+    def set_logic(self, strategy_instance):
+        """
+        Swaps the current mechanical logic strategy.
+        Supports Hot-Swapping.
+        """
+        self.logic = strategy_instance

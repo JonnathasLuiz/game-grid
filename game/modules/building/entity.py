@@ -19,13 +19,6 @@ class BuildingEntity:
         self.inventory = {}
         self.logic = None
 
-    def set_logic(self, strategy_instance):
-        """
-        Swaps the current mechanical logic strategy.
-        Supports Hot-Swapping.
-        """
-        self.logic = strategy_instance
-
     def update(self, delta_time=0):
         """
         Executes the current mechanical logic strategy.
