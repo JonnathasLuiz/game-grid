@@ -1,7 +1,7 @@
 from game.modules.providers.base_provider import IServiceProvider
 from game.core.event_bus import EventBus
 from game.core.grid_system import GridSystem
-from game.core.strategy.kernel import StrategyKernel
+from game.core.kernel import StrategyKernel
 from game.core.system_priority import SystemPriority
 
 class CoreServiceProvider(IServiceProvider):
@@ -9,12 +9,12 @@ class CoreServiceProvider(IServiceProvider):
         event_bus = EventBus()
         grid_system = GridSystem(width=20, height=20)
 
-        # New Strategy-based Kernel
-        kernel = StrategyKernel(event_bus, grid_system)
+        # New Strategy-based Kernel, now taking the container
+        kernel = StrategyKernel(container)
 
         container.singleton("EventBus", event_bus)
         container.singleton("GridSystem", grid_system)
-        container.singleton("KernelRegistry", kernel) # Keeping the name for compatibility
+        container.singleton("KernelRegistry", kernel)
 
     def boot(self, container):
         # Define base execution rules

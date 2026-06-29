@@ -12,7 +12,7 @@ Anteriormente, as lógicas de comportamento estavam presas aos seus respectivos 
 - **`execute(delta_time)`**: Método obrigatório que define o que a estratégia faz a cada tick. O uso de `delta_time` garante que a simulação seja independente da taxa de quadros (framerate).
 - **Injeção Automática**: Toda estratégia recebe em seu construtor referências ao `owner` (quem possui a estratégia), `EventBus`, `GridSystem` e o próprio `Kernel`.
 
-### 2. StrategyKernel (`kernel.py`)
+### 2. StrategyKernel (`game/core/kernel.py`)
 O gerenciador e fábrica de estratégias.
 - **Registro**: Centraliza todas as classes de comportamento disponíveis.
 - **Validação de Capacidades**: Antes de instanciar uma estratégia, o Kernel verifica se a entidade alvo possui permissão para usá-la (através do atributo `allowStrategies`).

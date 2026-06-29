@@ -1,41 +1,56 @@
 """
-Kernel Registry module for dependency injection and strategy management.
+Strategy Kernel for managing registration and instantiation of behaviors.
+Now integrated with the Service Container.
 """
-class KernelRegistry:
+class StrategyKernel:
     """
-    Central registry for behaviors and logics.
-    Handles instantiation and dependency injection (EventBus, GridSystem).
+    Central hub for the Strategy Framework.
+    Validates capabilities and injects dependencies.
+    Resolves strategies and core services via ServiceContainer.
     """
-    def __init__(self, event_bus, grid_system):
-        self.event_bus = event_bus
-        self.grid_system = grid_system
-        self._npc_behaviors = {}
-        self._building_logics = {}
+    STRATEGY_PREFIX = "strategy:"
 
-    def register_npc_behavior(self, name, cls):
+    def __init__(self, container):
         """
-        Registers an NPC behavior class.
+        Initializes the StrategyKernel with the service container.
+        :param container: The ServiceContainer instance for dependency resolution.
         """
-        self._npc_behaviors[name] = cls
+        self.container = container
 
-    def register_building_logic(self, name, cls):
-        """
-        Registers a building logic class.
-        """
-        self._building_logics[name] = cls
+    @property
+    def event_bus(self):
+        """Resolves EventBus from container."""
+        return self.container.resolve("EventBus")
 
-    def create_npc_behavior(self, name, npc, task_data):
-        """
-        Instantiates a registered NPC behavior with injected dependencies.
-        """
-        if name not in self._npc_behaviors:
-            raise ValueError(f"NPC Behavior {name} not registered")
-        return self._npc_behaviors[name](npc, task_data, self.event_bus, self.grid_system)
+    @property
+    def grid_system(self):
+        """Resolves GridSystem from container."""
+        return self.container.resolve("GridSystem")
 
-    def create_building_logic(self, name, building):
+    def register_strategy(self, name, cls):
         """
-        Instantiates a registered building logic with injected dependencies.
+        Registers a strategy class in the service container.
         """
-        if name not in self._building_logics:
-            raise ValueError(f"Building Logic {name} not registered")
-        return self._building_logics[name](building, self.event_bus, self.grid_system, self)
+        service_name = f"{self.STRATEGY_PREFIX}{name}"
+        self.container.singleton(service_name, cls)
+
+    def create_strategy(self, name, owner, **kwargs):
+        """
+        Instantiates a strategy resolved from the container if the owner supports it.
+        :param name: Registered name of the strategy.
+        :param owner: The entity requesting the strategy.
+        :raises ValueError: If strategy is not registered or not allowed by the owner.
+        """
+        service_name = f"{self.STRATEGY_PREFIX}{name}"
+
+        try:
+            strategy_cls = self.container.resolve(service_name)
+        except KeyError:
+            raise ValueError(f"Strategy {name} is not registered in the Service Container.")
+
+        # Declarative Validation
+        if not hasattr(owner, "allowStrategies") or name not in owner.allowStrategies:
+            owner_name = type(owner).__name__
+            raise ValueError(f"Entity {owner_name} does not support strategy {name}.")
+
+        return strategy_cls(owner, self.event_bus, self.grid_system, self, **kwargs)

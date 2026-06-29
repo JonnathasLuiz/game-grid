@@ -1,7 +1,8 @@
 import unittest
 from game.core.event_bus import EventBus
 from game.core.grid_system import GridSystem
-from game.core.strategy.kernel import StrategyKernel
+from game.core.kernel import StrategyKernel
+from game.core.service_container import ServiceContainer
 from game.modules.npc.system import NpcSystem
 from game.modules.npc.behaviors.build import BehaviorBuild
 from game.modules.building.system import BuildingSystem
@@ -11,9 +12,15 @@ from game.modules.task.manager import TaskManager
 
 class TestSimulation(unittest.TestCase):
     def test_construction_flow(self):
+        container = ServiceContainer()
         event_bus = EventBus()
         grid_system = GridSystem(width=10, height=10)
-        kernel = StrategyKernel(event_bus, grid_system)
+
+        container.singleton("EventBus", event_bus)
+        container.singleton("GridSystem", grid_system)
+
+        kernel = StrategyKernel(container)
+        container.singleton("KernelRegistry", kernel)
 
         kernel.register_strategy("BUILD", BehaviorBuild)
         kernel.register_strategy("BLUEPRINT", LogicBlueprint)
@@ -24,7 +31,6 @@ class TestSimulation(unittest.TestCase):
         task_manager = TaskManager(event_bus)
 
         npc = npc_system.add_npc("npc_1", 0, 0)
-        # Updated add_building call: removed manual logic name
         building = building_system.add_building("b1", "HOUSE", 2, 2, 2, 1)
 
         # Verify initial states
